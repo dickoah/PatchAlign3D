@@ -9,7 +9,9 @@ The `core/` folder contains the point clouds, labels, and precomputed DINOv2 pat
 The optional `renderings/` folder contains the rendered views used to generate labels and to compute 2D visual encoder patch features.
 
 ## Evaluation data
-- **ShapeNetPart:** [download](https://shapenet.cs.stanford.edu/media/shapenetcore_partanno_segmentation_benchmark_v0_normal.zip)
-- **FAUST (coarse parts from SATR):** [SATR](https://github.com/Samir55/SATR)
-- **PartNet-E:** [PartSLIP](https://colin97.github.io/PartSLIP_page/)
-- **ScanObjectNN:** [ScanObjectNN](https://hkust-vgd.github.io/scanobjectnn/)
+Download the evaluation datasets from their respective websites:
+
+- **[ShapeNetPart](https://shapenet.cs.stanford.edu/media/shapenetcore_partanno_segmentation_benchmark_v0_normal.zip)**
+- **[FAUST (coarse parts from SATR)](https://github.com/Samir55/SATR)**
+- **[PartNet-E](https://colin97.github.io/PartSLIP_page/)**
+- **[ScanObjectNN](https://hkust-vgd.github.io/scanobjectnn/)**

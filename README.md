@@ -9,7 +9,9 @@
 - [Citation](#citation)
 
 ## Introduction
-Official source code for PatchAlign3D: Local Feature Alignment for Dense 3D Shape Understanding
+Official source code for PatchAlign3D: Local Feature Alignment for Dense 3D Shape Understanding.
+
+Paper: [arXiv](https://arxiv.org/abs/2601.02457) | [PDF](https://arxiv.org/pdf/2601.02457)
 
 
 ## Installation
@@ -28,7 +30,7 @@ pip install --upgrade https://github.com/unlimblue/KNN_CUDA/releases/download/0.
 ```
 
 ## Data
-Details about data download can be found in [here](src/datasets/README.md)
+Details about how to download training and evaluation data can be found in [here](src/datasets/README.md).
 
 ## Inference
 Run inference on a single shape and save per-point predictions.
@@ -46,7 +48,7 @@ The stage-2 (PatchAlign3D Model) checkpoint is available on [Hugging Face](https
 ### Evaluation (ShapeNetPart)
 ```
 python patchalign3d/inference/eval.py \
-  --ckpt /path/to/stage2_last.pt \
+  --ckpt /path/to/ckpt.pt \
   --shapenet_root /path/to/shapenetcore_partanno_segmentation_benchmark_v0_normal \
   --gpu 0 --num_group 128 --group_size 32 \
   --clip_model ViT-bigG-14 --clip_pretrained laion2b_s39b_b160k
@@ -54,8 +56,10 @@ python patchalign3d/inference/eval.py \
 
 ## Training
 
-### Stage 0 (optional): Offline DINO patch features
-If you want to regenerate DINO features, clone COPS into `PatchAlign3D/cops` and run:
+### Optional preprocessing
+
+#### Offline 2D visual patch features (extraction + projection)
+If you want to regenerate 2D visual patch features, clone COPS into `PatchAlign3D/cops`, install dependencies and run:
 
 ```
 python patchalign3d/tools/precompute_dino_patch_features.py \
@@ -64,7 +68,7 @@ python patchalign3d/tools/precompute_dino_patch_features.py \
   --num_views 10 --view_batch 2 
 ```
 
-### Offline text bank (optional but recommended)
+#### Offline text banks (optional but recommended)
 ```
 python patchalign3d/tools/build_text_bank.py \
   --data_root /path/to/data_root \
@@ -85,9 +89,7 @@ python patchalign3d/training/stage1.py \
   --eval_every 2 --save_every 10 \
   --npoint 2048 --num_group 128 --group_size 32 \
   --random_sample_train --train_encoder \
-  --dino_feature_subdir patch_dino \
-  --wandb_project part_segmentation \
-  --wandb_run_name stage1_dino --wandb_mode online
+  --dino_feature_subdir patch_dino
 ```
 
 ### Stage 2 (text alignment)
@@ -103,17 +105,18 @@ python patchalign3d/training/stage2.py \
   --npoint 2048 --drop_labels_not_in_bank --text_bank_require \
   --num_group 128 --group_size 32 \
   --init_stage1 /path/to/stage1_last.pt \
-  --train_last_block_only \
-  --wandb_project part_segmentation \
-  --wandb_run_name stage2_clip_patch_bce
+  --train_last_block_only
 ```
 
 ## Citation
 ```
-@article{patchalign3d2025,
-  title={PatchAlign3D: Local Feature Alignment for Dense 3D Shape Understanding},
-  author={},
-  journal={},
-  year={}
+@misc{hadgi2026patchalign3dlocalfeaturealignment,
+  title={PatchAlign3D: Local Feature Alignment for Dense 3D Shape understanding},
+  author={Souhail Hadgi and Bingchen Gong and Ramana Sundararaman and Emery Pierson and Lei Li and Peter Wonka and Maks Ovsjanikov},
+  year={2026},
+  eprint={2601.02457},
+  archivePrefix={arXiv},
+  primaryClass={cs.CV},
+  url={https://arxiv.org/abs/2601.02457},
 }
 ```
