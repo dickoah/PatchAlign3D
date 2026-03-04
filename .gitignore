@@ -214,3 +214,9 @@ checkpoints/
 *.npz
 *.pth
 .DS_Store
+
+# Add large model files to ignore list
+*.ckpt
+*.pt
+data/model/*.ckpt
+data/model/*.pt

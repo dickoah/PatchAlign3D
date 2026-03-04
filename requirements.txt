@@ -1,3 +1,6 @@
+# First install PyTorch with CUDA 12.8 support, then install the rest of the dependencies.
+# pip install torch==2.7.0+cu128 torchvision==0.22.0+cu128 torchaudio==2.7.0+cu128 --extra-index-url https://download.pytorch.org/whl/cu128
+
 # Core
 torch>=2.1.0
 open_clip_torch>=2.24.0
@@ -11,4 +14,16 @@ wandb
 transformers
 torchvision
 termcolor
-open3d==0.17.0
+open3d>=0.17.0
+
+gradio
+trimesh
+scipy
+matplotlib
+
+huggingface_hub
+
+# Then install those : 
+# For CUDA 12+ (e.g. RTX 30xx/40xx/50xx), you must set TORCH_CUDA_ARCH_LIST to avoid "Unsupported gpu architecture 'compute_37'" errors:
+# export TORCH_CUDA_ARCH_LIST="8.0 8.6 9.0" && pip install "./libraries/pointnet2_pytorch/pointnet2_ops_lib/" --no-build-isolation --no-build-isolation
+# pip install --upgrade https://github.com/unlimblue/KNN_CUDA/releases/download/0.2/KNN_CUDA-0.2-py3-none-any.whl
